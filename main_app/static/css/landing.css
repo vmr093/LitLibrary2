@@ -1,46 +1,48 @@
 /* General Variables */
-@main-font: Montserrat, sans-serif;
-@content-font: Roboto, sans-serif;
-@h3-font: 'Kaushan Script', cursive;
-@main-color: #fff;
-@icon-color: #95e1d3;
+:root {
+--main-font: 'Quicksand', sans-serif;
+--content-font: Roboto, sans-serif;
+--h3-font: 'Dancing Script', cursive;
+--main-color: #2C3E50;
+--icon-color: #95e1d3;
+
+}
 
 /* General Styles */
 body {
 	margin: 0 auto;
 	padding: 0;
 	font-size: 16px;
-	background: @main-color;
 	section {display: block;} 
 	h1, h2, h3, h4, h5, h6, ul, li {
 		margin: 0;
 		padding: 0;
 	}
 	h1 {
-		font-family: @main-font;
+		font-family: var(--main-font);
 		font-weight: 700;
 		text-transform: uppercase;
 	}
 	h2 {
-		font-family: @main-font;
+		font-family: var(--main-font);
 		font-size: 1.875em;
 		font-weight: 700;
 		text-transform: uppercase;
 	}
 	h3 {
-		font-family: @h3-font;
+		font-family: var(--h3-font);
 		font-size: 1.5em;
 		font-weight: 400;
 	}
 	h4 {
-		font-family: @main-font;
+		font-family: var(--main-font);
 		font-size: 0.875em;
 		font-weight: 400;
 		text-transform: uppercase;
 	}
 	p {
 		line-height: 150%;
-		font-family: @content-font;
+		font-family: var(--content-font);
 		font-size: 0.9375em;
 		color: #999;
 	}
@@ -56,7 +58,10 @@ body {
 .header-wrapper {
     display: flex;
     align-items: center; /* Vertically aligns logo and menu */
-    justify-content: space-between; /* Ensures proper spacing */
+    justify-content: center; /* Ensures proper spacing */
+    width: 100%;
+    padding-top: 1em;
+    position: relative;
 }
 
 .main-logo {
@@ -66,7 +71,6 @@ body {
 .bg-wrapper {
 	width: 100%;
 	height: 100%;
-	background-image: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8));
 }
 .section-header {
 	padding-top: 5.625em;
@@ -88,8 +92,8 @@ body {
 	top: 0;
 	width: 100%;
 	z-index: 1000;
-	font-family: @main-font;
-	color: @main-color;
+	font-family: var(--main-font);
+	color: var(--main-color);
 	background: transparent;
 	.header-wrapper {
 		display: block;
@@ -110,7 +114,7 @@ body {
 				a {
 					padding-bottom: 0.75em;
 					text-transform: uppercase;
-					color: @main-color;
+					color: var(--main-color);
 					font-size: 0.875em;
 					&:hover {
 						color: #fce38a;
@@ -129,8 +133,7 @@ body {
 /* Section-1 Styles */
 #section-1 {
 	height: 38em;
-	color: @main-color;
-	background-color: #222;
+	color: var(--main-color);
 	.content-slider {
 		position: relative;
 		width: 100%;
@@ -156,11 +159,14 @@ body {
 				.banner-inner-wrapper {
 					height: 100%;
 					padding-top: 6em;
-					background-image: linear-gradient(rgba(243,129,129,.9), rgba(252,227,138,.9));
 					box-sizing: border-box;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center; /* Adjust alignment */
+                    padding-top: 10em; /* Move down */
 					h2 {
 						padding-bottom: 0.3em;
-						font-family: @h3-font;
+						font-family: var(--h3-font);
 						font-weight: 400;
 						font-size: 2.5em;
 						text-transform: none;
@@ -174,7 +180,7 @@ body {
 							width: 4em;
 							height: 0.1875em;
 							margin: 2.5em auto;
-							background: @main-color;
+							background: var(--main-color);
 					}
 					.learn-more-button {
 						padding-bottom: 5em;
@@ -182,11 +188,11 @@ body {
 						a {
 							padding: 0.5em 2em;
 							text-align: center;
-							font-family: @main-font;
+							font-family: var(--main-font);
 							font-size: 0.875em;
-							color: @main-color;
+							color: var(--main-color);
 							text-transform: uppercase;
-							border: 0.1875em solid @main-color;
+							border: 0.1875em solid var(--main-color);
 							&:hover {
 								color: #e88382;
 								border-color: #e88382;
@@ -211,8 +217,8 @@ body {
 				display: block;
 				width: 70%;
 				margin: 0 auto;
-				font-family: @main-font;
-				color: @main-color;
+				font-family: var(--main-font);
+				color: var(--main-color);
 				label {
 					position: relative;
 					display: inline-block;
@@ -223,7 +229,7 @@ body {
 					padding-top: 1em;
 					text-align: left;
 					text-transform: uppercase;
-					font-family: @main-font;
+					font-family: var(--main-font);
 					font-size: 1em;
 					color: #f6eac5;
 					font-weight: 400;
@@ -265,14 +271,14 @@ body {
 		#banner3:checked ~ nav label:nth-of-type(3),
 		#banner4:checked ~ nav label:nth-of-type(4) {
 			cursor: default;
-			color: @main-color;
+			color: var(--main-color);
 			transition: all .5s;
 		}
 		#banner1:checked ~ nav label:nth-of-type(1) .progressbar,
 		#banner2:checked ~ nav label:nth-of-type(2) .progressbar,
 		#banner3:checked ~ nav label:nth-of-type(3) .progressbar,
 		#banner4:checked ~ nav label:nth-of-type(4) .progressbar {
-			background: @main-color;
+			background: var(--main-color);
 		}
 		#banner1:checked ~ nav label:nth-of-type(1) .progressbar-fill,
 		#banner2:checked ~ nav label:nth-of-type(2) .progressbar-fill,
@@ -338,7 +344,7 @@ body {
 	#section-1 .content-slider nav .controls {width: 90%;}
 	#section-1 .content-slider .slider .banner .banner-inner-wrapper h2 {font-size: 2em;}
 	#section-1 .content-slider .slider .banner .banner-inner-wrapper h1 {font-size: 4.5em;}
-	#section-1 .content-slider .slider .banner .banner-inner-wrapper {padding-top: 5em;}
+	#section-1 .content-slider .slider .banner .banner-inner-wrapper {padding-top: 12vh;}
 }
 
 @media only screen and (max-width: 768px) {
@@ -346,7 +352,7 @@ body {
 	#section-1 {height: 27em;}
 	#section-1 .content-slider nav .controls {width: 100%;}
 	#section-1 .content-slider nav .controls label {width: 19%; font-size: 0.8em;}
-	#section-1 .content-slider .slider .banner .banner-inner-wrapper .line {margin: 1.7em auto;}
+	#section-1 .content-slider .slider .banner .banner-inner-wrapper .line {margin: 1.7em auto; padding-top: 10vh;}
 }
 
 @media only screen and (max-width: 650px) {.main-header .header-wrapper {width: 95%;}}
@@ -362,5 +368,5 @@ body {
 	#section-1 .content-slider nav .controls label {width: 40%; font-size: 0.7em;}
 	#section-1 .content-slider .slider .banner .banner-inner-wrapper h2 {font-size: 1.5em;}
 	#section-1 .content-slider .slider .banner .banner-inner-wrapper h1 {font-size: 3em;}
-	#section-1 .content-slider .slider .banner .banner-inner-wrapper .line {margin: 1.7em auto;}
+	#section-1 .content-slider .slider .banner .banner-inner-wrapper .line {margin: 1.7em auto; padding-top: 8vh;}
 }
