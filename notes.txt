@@ -1,0 +1,93 @@
+DJANGO PROJECT SETUP
+
+1. cd code
+2. cd sandbox
+3. git clone https://github.com/<your-username>/"YOUR REPO NAME".git
+4. cd YOUR REPO NAME
+5. pipenv install django
+6. pipenv shell
+7. django-admin startproject YOURPROJECTNAME .
+8. code .
+
+
+SETTING UP THE APP
+
+1. Look at the settings.py file
+2. python3 manage.py YOURAPPNAME_app
+3. in settings.py include 'YOURAPPNAME', 
+4. run server python3 manage.py runserver
+5. in Google Chrome go to this site 127.0.0.1:8000
+6. Migrate python3 manage.py migrate
+
+DEFINING ROUTES - URLS
+
+1. create a urls.py in your YOURAPPNAME foler
+2. in the urls.py for YOURPROJECTNAME , add include after the path,
+    
+    from django.contrib import admin
+    from django.urls import path, include
+
+3. Add a new line to include the app's urls 
+    
+    urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('main_app.urls')), # Mounts main_app's routes at the root URL
+    ]
+4.  Go to the YOURAPPNAME/urls.py and add this to file + home app route"
+    
+    from django.urls import path
+    from . import views # Import views to connect routes to view functions
+
+    urlpatterns = [
+    path('', views.home, name='home'),
+    ]
+
+ DEFINING VIEW functions
+
+ 1. Navigate to YOURAPPNAME/views.py
+
+    # main_app/views.py
+
+    from django.shortcuts import render
+
+    # Import HttpResponse to send text-based responses
+    from django.http import HttpResponse
+
+    # Define the home view function
+    def home(request):
+    # Send a simple HTML response
+    return HttpResponse('<h1>Hello ᓚᘏᗢ</h1>')
+
+
+CREATING DJANGO TEMPLATES
+
+1. create a templates folder in YOURAPPNAME
+2. start creating your templates aka your .html pages 
+3. add to the YOURAPPNAME/view.py 
+
+    def about(request):
+    return render(request, 'about.html')
+4. can use base,html if want to 
+5. go to YOURPROJECTNAME/url.py and add your new html page to the urlpatterns
+
+    path("about/", about, name="about"),
+
+ 6. add this to the top of the urls.py file (under the rest of the lines)
+
+    from main_app.views import about   
+
+ 7. add the new route to the navgation bar either in your base.html or each html if not using base
+
+    <li><a href="/cats">All Cats</a></li>
+    <li><a href="/about">About</a></li>
+
+8. add to the urlpatterns in YOURAPPNAME/urls.py
+      
+
+
+
+
+
+
+
+
