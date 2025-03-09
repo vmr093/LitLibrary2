@@ -1,8 +1,10 @@
 from django.urls import path
-from . import views  # Import views to connect routes to view functions
+from .views import home, dashboard, sign_in_view, sign_up_view, logout_view
 
 urlpatterns = [
-    path('', views.home, name='home'),  # Serves landing.html as the homepage
-    path('about/', views.about, name='about'),  # Serves about.html
-    path('books/', views.books_index, name='book-index'),  # Books index page
+    path('', home, name='home'),
+    path('signin/', sign_in_view, name='signin'),
+    path('signup/', sign_up_view, name='signup'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('logout/', logout_view, name='logout'),
 ]
