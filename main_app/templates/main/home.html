@@ -10,6 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
     
     <!-- Custom Styles -->
     <style>
@@ -36,6 +41,8 @@
         .content {
             padding: 100px 50px;
             text-align: center;
+            font-family: 'poppins', san serif; 
+
         }
         .btn-custom {
             background-color: #8b5e3c;
@@ -50,6 +57,68 @@
         .navbar a {
             color: white !important;
         }
+        .book-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        .book {
+            width: 150px;
+            height: 220px;
+            background-color: #ddd;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        .book:hover {
+            transform: scale(1.1);
+        }
+
+        <style>
+            body {
+                font-family: 'Merriweather', serif;
+                background-color: #f9f5ed;
+                color: #333;
+            }
+           
+            .book {
+                width: 150px;
+                height: 220px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s ease-in-out;
+                margin: 10px; /* Adjust the value for desired spacing */
+            }
+            
+            .book:hover {
+                transform: scale(1.1);
+            }
+
+            .why-litlibrary {
+                font-family: 'Poppins', sans-serif;
+                font-size: 1.8rem;
+                font-weight: 600;
+            }
+
+            .why-litlibrary {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.8rem;
+                font-weight: bold;
+                opacity: 0;
+                transform: translateX(-100px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            
+            .why-litlibrary.visible {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            
+        </style>
     </style>
 </head>
 <body>
@@ -89,7 +158,17 @@
     <!-- About Section -->
     <div class="content" id="about">
         <h2>Why LitLibrary?</h2>
-        <p>Discover a curated selection of books, track your reading journey, and connect with fellow literature enthusiasts.</p>
+        <p>
+            Discover, organize, and track your reading journey like never before with LitLibrary! Whether you're a bookworm, a casual reader, or someone looking to build better reading habits, LitLibrary makes it easy to curate your personal digital bookshelf. Save books you love, create custom reading lists, and set goals to stay motivated. With a sleek, interactive design featuring dynamic scrolling effects and engaging animations, LitLibrary transforms book tracking into a visually stunning experience. Plus, you can explore new reads, share recommendations, and seamlessly manage your TBR (To-Be-Read) list—all in one place. Sign up today and take your reading experience to the next level!</p>
+        
+        <!-- Book Carousel -->
+    <div class="book-carousel">
+        <img class="book" src="https://m.media-amazon.com/images/I/81WcnNQ-TBL._AC_UY218_.jpg" alt="Book 1">
+        <img class="book" src="https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_UY218_.jpg" alt="Book 2">
+        <img class="book" src="https://m.media-amazon.com/images/I/81iqZ2HHD-L._AC_UY218_.jpg" alt="Book 3">
+        <img class="book" src="https://m.media-amazon.com/images/I/91bYsX41DVL._AC_UY218_.jpg" alt="Book 4">
+        <img class="book" src="https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_UY218_.jpg" alt="Book 5">
+    </div>
     </div>
     
     <!-- Parallax Section -->
@@ -107,10 +186,12 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // GSAP Animations on Page Load
             gsap.from("h1", { opacity: 0, y: -50, duration: 1 });
             gsap.from(".lead", { opacity: 0, y: 30, duration: 1, delay: 0.5 });
             gsap.from(".btn-custom", { opacity: 0, scale: 0.8, duration: 1, delay: 1 });
-            
+    
+            // GSAP Scroll Animations for General Content Sections
             gsap.utils.toArray(".content").forEach(section => {
                 gsap.from(section, {
                     opacity: 0,
@@ -123,7 +204,23 @@
                     }
                 });
             });
+    
+            // GSAP Scroll Animation for "Why LitLibrary?" Section (Sliding from Left)
+            gsap.from(".why-litlibrary", {
+                opacity: 0,
+                x: -150, // Moves in from the left
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".why-litlibrary",
+                    start: "top 85%", // Adjust if needed
+                    end: "top 50%", 
+                    toggleActions: "play none none none"
+                }
+            });
         });
     </script>
-</body>
+    
+    
+  </body>
 </html>
