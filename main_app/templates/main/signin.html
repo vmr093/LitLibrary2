@@ -22,5 +22,16 @@
 
     <p>Don't have an account yet? <a href="{% url 'signup' %}">Sign up here</a></p>
 
+
+    {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
 </body>
 </html>

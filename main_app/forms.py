@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .models import Profile
+
+
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -11,3 +14,9 @@ class SignUpForm(UserCreationForm):
 
 class SignInForm(AuthenticationForm):
     pass
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_picture']

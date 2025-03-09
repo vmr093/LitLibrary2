@@ -24,3 +24,13 @@ section {
 #signup-section {
     background: #ddd;
 }
+
+
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+.dark-mode .alert {
+    background-color: #333;
+    color: white;
+}
