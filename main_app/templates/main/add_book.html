@@ -1,0 +1,228 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Book | LitLibrary</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- FontAwesome -->
+
+    <style>
+        /* LitLibrary Themed Add Book Page */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #4A3F35;  /* Dark brown */
+            --secondary-color: #D7B29D;  /* Soft beige */
+            --background-color: #F5EDE0;  /* Light cream */
+            --text-color: #2E2A28;  /* Dark text */
+            --button-color: #8C4A36;  /* Rich reddish-brown */
+            --button-hover: #6E3A29;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Centering the form on the page */
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;  /* Full viewport height */
+            padding: 20px;
+        }
+
+        /* Form Container - With Flexbox for Image & Form Side by Side */
+        .add-book-container {
+            display: flex;
+            align-items: center;
+            width: 600px; /* Wider to accommodate both image & form */
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Book Cover Section */
+        .book-cover-container {
+            flex: 1; /* Takes up less space */
+            text-align: center;
+            padding-right: 20px; /* Spacing between cover and form */
+        }
+
+        #book-cover {
+            width: 150px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Section */
+        .form-container {
+            flex: 2; /* Takes more space than image */
+        }
+
+        .form-container h2 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            color: var(--primary-color);
+        }
+
+        /* Form Elements */
+        .form-container label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 10px;
+        }
+
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .form-container input:focus {
+            outline: none;
+            border-color: var(--button-color);
+        }
+
+        /* Search Suggestions */
+        #suggestions {
+            background: white;
+            border: 1px solid var(--secondary-color);
+            margin-top: 5px;
+            max-height: 120px;
+            overflow-y: auto;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        #suggestions li {
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease-in-out;
+        }
+
+        #suggestions li:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Submit Button */
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background: var(--button-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .form-container button:hover {
+            background: var(--button-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="add-book-container">
+        <!-- Book Cover on the Left -->
+        <div class="book-cover-container">
+            <img id="book-cover" src="https://via.placeholder.com/150" alt="Book Cover">
+        </div>
+
+        <!-- Form on the Right -->
+        <div class="form-container">
+            <h2>Add a New Book</h2>
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <label for="book-search">Search for a Book:</label>
+                <input type="text" id="book-search" name="search_title" placeholder="Start typing a book title...">
+                <ul id="suggestions"></ul> <!-- Dropdown for book suggestions -->
+
+                <label for="id_title">Title:</label>
+                {{ form.title }}
+
+                <label for="id_author">Author:</label>
+                {{ form.author }}
+
+                <label for="id_genre">Genre:</label>
+                {{ form.genre }}
+
+                <label for="id_pages">Pages:</label>
+                {{ form.pages }}
+
+                <label for="id_cover_image">Cover Image URL:</label>
+                {{ form.cover_image }}
+
+                <label for="id_status">Status:</label>
+                {{ form.status }}
+
+                <button type="submit">Add Book</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("book-search");
+        const suggestionsList = document.getElementById("suggestions");
+        
+        searchInput.addEventListener("input", async function () {
+            const query = searchInput.value;
+            if (query.length < 3) {
+                suggestionsList.innerHTML = "";
+                return;
+            }
+
+            const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+            const data = await response.json();
+            
+            suggestionsList.innerHTML = "";
+            if (data.items) {
+                data.items.slice(0, 5).forEach(book => {
+                    const title = book.volumeInfo.title;
+                    const author = book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Unknown";
+                    const genre = book.volumeInfo.categories ? book.volumeInfo.categories[0] : "Unknown";
+                    const pages = book.volumeInfo.pageCount || "Unknown";
+                    const coverImage = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "";
+
+                    const li = document.createElement("li");
+                    li.textContent = title;
+                    li.addEventListener("click", function () {
+                        document.getElementById("id_title").value = title;
+                        document.getElementById("id_author").value = author;
+                        document.getElementById("id_genre").value = genre;
+                        document.getElementById("id_pages").value = pages;
+                        document.getElementById("id_cover_image").value = coverImage;
+                        document.getElementById("book-cover").src = coverImage;
+                        suggestionsList.innerHTML = "";
+                    });
+
+                    suggestionsList.appendChild(li);
+                });
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>

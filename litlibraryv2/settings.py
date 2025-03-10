@@ -78,8 +78,8 @@ WSGI_APPLICATION = 'litlibraryv2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cataloge',
     }
 }
 
@@ -121,10 +121,13 @@ USE_TZ = True
 import os
 
 STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "static"),
 ]
+
+# Add this line to fix the error:
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
 
 
 # Default primary key field type
@@ -134,3 +137,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',}
+
+
+LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_URL = '/signin/'
+

@@ -104,27 +104,38 @@
             <h2>New Here?</h2>
             <p>Register now and start your reading journey with LitLibrary!</p>
             <a href="{% url 'signup' %}" class="btn">Register</a>
-
         </div>
+    
         <div class="right">
             <h2>LitLibrary Login</h2>
-            <form>
+    
+            <!-- Django Login Form (Ensures Functionality) -->
+            <form method="post">
+                {% csrf_token %}
+                
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" required>
+                    {{ form.username }}  <!-- Uses Django's form field -->
                 </div>
+                
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" required>
+                    {{ form.password }}  <!-- Uses Django's form field -->
                 </div>
+                
                 <button class="btn" type="submit">Login</button>
+                
                 <p class="forgot-password">Forgot your password? <a href="#">Reset here</a></p>
+                
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-google"></i></a>
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                 </div>
             </form>
+        </div>
+    </div>    
+    
         </div>
     </div>
 </body>
