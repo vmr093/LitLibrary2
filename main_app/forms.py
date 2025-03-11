@@ -71,3 +71,8 @@ class AddBookForm(forms.ModelForm):
         widgets = {
             'status': forms.Select(choices=Book.STATUS_CHOICES),
         }
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'cover_image', 'status']

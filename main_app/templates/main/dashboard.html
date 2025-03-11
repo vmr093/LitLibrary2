@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | LitLibrary</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+
 
     <style>
         /* Fonts and Theme Colors */
@@ -218,6 +222,11 @@
         .view-books-btn:hover {
             background-color: var(--button-hover);
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
         
     </style>
 </head>
@@ -227,6 +236,7 @@
     <header>
         <span>📚 LitLibrary</span>
         <div class="nav-links">
+            <a href="{% url 'home' %}">🏠 Home</a>
             <a href="{% url 'dashboard' %}">🏠 Dashboard</a>
             <a href="{% url 'book_list' %}">📖 My Books</a>
             <a href="{% url 'add_book' %}">➕ Add a Book</a>
@@ -294,6 +304,24 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => fetchRecommendations());
+
+        document.addEventListener("DOMContentLoaded", function() {
+            gsap.registerPlugin(ScrollTrigger);
+        
+            gsap.utils.toArray(".section").forEach(section => {
+                gsap.from(section, {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1.2,
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%", // Animation starts when 80% of the section is visible
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+        });
+        
     </script>
 
 </body>
