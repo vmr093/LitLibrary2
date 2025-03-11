@@ -231,7 +231,23 @@
             max-width: 90%;
             padding: 0 10px;
         }
-                
+              
+        .add-to-list-btn {
+            background-color: #4A3F35; 
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-list-btn:hover {
+            background-color: #F5EDE0;
+        }
+        
 
         /* Footer */
         footer {
@@ -327,29 +343,57 @@
                     const author = book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Unknown Author";
                     const coverImage = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/120x180?text=No+Image";
         
+                    // Create book card container
                     const bookCard = document.createElement("div");
                     bookCard.classList.add("book-card");
         
+                    // Create image element
                     const imgElement = document.createElement("img");
                     imgElement.src = coverImage;
                     imgElement.alt = title;
         
+                    // Create title element
                     const titleElement = document.createElement("h3");
                     titleElement.textContent = title;
         
+                    // Create author element
                     const authorElement = document.createElement("p");
                     authorElement.textContent = author;
         
+                    // Create 'Add to List' button
+                    const addButton = document.createElement("button");
+                    addButton.textContent = "Add to List";
+                    addButton.classList.add("add-to-list-btn");
+                    addButton.addEventListener("click", () => addToReadingList(title, author, coverImage));
+        
+                    // Append elements to book card
                     bookCard.appendChild(imgElement);
                     bookCard.appendChild(titleElement);
                     bookCard.appendChild(authorElement);
+                    bookCard.appendChild(addButton);
         
+                    // Append book card to recommendations section
                     recommendationsDiv.appendChild(bookCard);
                 });
             }
         }
         
+        // Function to handle adding a book to the list
+        function addToReadingList(title, author, coverImage) {
+            const savedBooks = JSON.parse(localStorage.getItem("readingList")) || [];
+        
+            // Avoid duplicates
+            if (!savedBooks.some(book => book.title === title)) {
+                savedBooks.push({ title, author, coverImage });
+                localStorage.setItem("readingList", JSON.stringify(savedBooks));
+                alert(`"${title}" added to your list! ✅`);
+            } else {
+                alert(`"${title}" is already in your list. 👍`);
+            }
+        }
+        
         document.addEventListener("DOMContentLoaded", () => fetchRecommendations());
+        
         
 
         document.addEventListener("DOMContentLoaded", function() {
