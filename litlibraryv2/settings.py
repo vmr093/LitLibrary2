@@ -70,7 +70,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
         conn_max_age=600,
-        ssl_require=True  # Ensure SSL for secure connection on Heroku
+        ssl_require=True  # Ensure SSL is required for secure connections
     )
 }
 # Password validation
