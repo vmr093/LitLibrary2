@@ -5,9 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit a Book | LitLibrary</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- FontAwesome -->
-    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+    <title>Review Book | LitLibrary</title>
 
     <style>
         body {
@@ -18,7 +16,6 @@
             padding: 20px;
         }
 
-        /* ✅ Navbar */
         .navbar {
             background-color: #4A3F35;
             padding: 15px;
@@ -70,40 +67,25 @@
         button:hover {
             background-color: #6E3A29;
         }
-
-        a {
-            display: inline-block;
-            margin-top: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            color: #8C4A36;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- ✅ Navbar -->
     <div class="navbar">
-        <a href="{% url 'home' %}">🏠 Home</a>
         <a href="{% url 'dashboard' %}">🏠 Dashboard</a>
         <a href="{% url 'book_list' %}">📖 My Books</a>
         <a href="{% url 'add_book' %}">➕ Add a Book</a>
         <a href="{% url 'logout' %}">🚪 Logout</a>
     </div>
 
-    <h2>Edit Book 📖</h2>
-    
+    <h2>Leave a Review for "{{ book.title }}"</h2>
+
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">💾 Save Changes</button>
+        <button type="submit">Submit Review</button>
     </form>
-    
+
     <a href="{% url 'book_list' %}">⬅ Back to Books</a>
 
 </body>
