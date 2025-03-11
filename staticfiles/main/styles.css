@@ -25,7 +25,6 @@ section {
     background: #ddd;
 }
 
-
 .dark-mode {
     background-color: #121212;
     color: white;
@@ -33,4 +32,206 @@ section {
 .dark-mode .alert {
     background-color: #333;
     color: white;
+}
+
+/* ✅ General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* ✅ Make Text & Spacing Responsive */
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.2rem; }
+}
+
+/* ✅ Responsive Containers */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ✅ Navbar */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    z-index: 1000;
+}
+
+/* ✅ Make nav-links responsive */
+.nav-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap; /* Allows links to adjust on smaller screens */
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    padding: 8px 12px; /* Reduced padding */
+    border-radius: 8px;
+    transition: background 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+
+/* ✅ Responsive Adjustments */
+@media (max-width: 1024px) {
+    .nav-links a {
+        font-size: 0.9rem; /* Reduce font size slightly */
+        padding: 6px 10px; /* Reduce padding */
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        justify-content: center; /* Center links if they wrap */
+        gap: 8px; /* Reduce space between links */
+    }
+
+    .nav-links a {
+        font-size: 0.85rem; /* Make text even smaller */
+        padding: 5px 8px; /* Further reduce padding */
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links a {
+        font-size: 0.75rem; /* Smallest text size for mobile */
+        padding: 4px 6px;
+    }
+}
+
+/* ✅ Sections */
+.section {
+    background-color: var(--section-bg);
+    padding: 60px 20px;
+    text-align: center;
+    transition: all 0.6s ease-in-out;
+}
+
+/* ✅ Book Cards */
+.book-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.book-card {
+    width: 250px;
+    background: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.book-card img {
+    width: 100%;
+    max-width: 120px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.book-card:hover {
+    transform: scale(1.05);
+}
+
+/* ✅ Mobile Card Layout */
+@media (max-width: 768px) {
+    .book-card {
+        width: 90%;
+    }
+}
+
+/* ✅ Parallax Section */
+.parallax {
+    height: 50vh;
+    background-color: var(--parallax-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+    margin-top: 120px;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.parallax-content {
+    text-align: center;
+    max-width: 80%;
+}
+
+.parallax h2 {
+    font-size: 2rem;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 768px) {
+    .parallax {
+        height: 40vh;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 1rem;
+    background: var(--primary-color);
+    color: white;
+}
+
+/* ✅ Make Footer Responsive */
+@media (max-width: 768px) {
+    footer {
+        font-size: 0.9rem;
+    }
+}
+
+/* ✅ Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        width: 95%;
+    }
+}
+
+/* ✅ Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .book-list {
+        flex-direction: column;
+        align-items: center;
+    }
 }
