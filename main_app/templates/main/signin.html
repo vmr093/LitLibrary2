@@ -4,101 +4,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LitLibrary Login</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <title>Login | LitLibrary</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="{% static 'main/styles.css' %}">
-  <link rel="stylesheet" href="{% static 'main/responsive.css' %}">
 
-  <style> 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #1e2a47, #5a3e2b); 
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            display: flex;
-            width: 900px;
-            background: #f4e9dc;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        .left, .right {
-            width: 50%;
-            padding: 2rem;
-            text-align: center;
-        }
-        .left {
-            background: #8b5e3c;
-            color: white;
-        }
-        .left h2 {
-            margin-bottom: 1rem;
-        }
-        .left .btn {
-            text-decoration: none;
-            display: inline-block;
-            width: auto;
-            padding: 12px 20px;
-        }
-        .right h2 {
-            margin-bottom: 1rem;
-            color: #1e2a47;
-        }
-        .input-group {
-            position: relative;
-            margin-bottom: 1.5rem;
-            width: 85%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .input-group input {
-            width: 90%;
-            padding: 12px;
-            padding-left: 40px;
-            border: 2px solid #5a3e2b;
-            border-radius: 5px;
-            background: #fff;
-            font-size: 16px;
-        }
-        .input-group i {
-            position: absolute;
-            left: -10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #5a3e2b;
-        }
-        .btn {
-            background: #8b5e3c;
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 85%;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: #734c2e;
-        }
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 1rem;
-        }
-        .social-icons a {
-            color: #8b5e3c;
-            font-size: 24px;
-            transition: color 0.3s;
-        }
-        .social-icons a:hover {
-            color: #5a3e2b;
-        }</style>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #1e2a47, #5a3e2b);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      max-width: 700px;
+      background: #f4e9dc;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      animation: slideFadeIn 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .left, .right {
+      width: 50%;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .left {
+      background: #8b5e3c;
+      color: white;
+      animation: fadeInLeft 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .right {
+      animation: fadeInRight 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .left h2 {
+      margin-bottom: 1rem;
+    }
+
+    .left .btn {
+      text-decoration: none;
+      display: inline-block;
+      padding: 10px 16px;
+      background: white;
+      color: #8b5e3c;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 6px;
+      transition: background 0.3s;
+      margin-top: 12px;
+    }
+
+    .right h2 {
+      margin-bottom: 1rem;
+      color: #1e2a47;
+      font-size: 22px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 1rem;
+      width: 85%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 8px 8px 8px 32px;
+      border: 2px solid #5a3e2b;
+      border-radius: 5px;
+      background: #fff;
+      font-size: 14px;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #5a3e2b;
+    }
+
+    .btn {
+      background: #8b5e3c;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 85%;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #734c2e;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      color: #8b5e3c;
+      font-size: 20px;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #5a3e2b;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left, .right {
+        width: 100%;
+        padding: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .input-group input {
+        font-size: 13px;
+        padding: 8px 8px 8px 32px;
+      }
+
+      .right h2 {
+        font-size: 20px;
+        margin-bottom: 0.8rem;
+      }
+
+      .social-icons {
+        display: none;
+      }
+    }
+
+    @keyframes slideFadeIn {
+      0% {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInLeft {
+      0% {
+        transform: translateX(-40px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInRight {
+      0% {
+        transform: translateX(40px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0px);
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -110,22 +207,9 @@
 
     <div class="right">
       <h2>LitLibrary Login</h2>
-
       <form method="POST">
         {% csrf_token %}
-
-        {% if form.errors %}
-          <ul style="color: red;">
-            {% for field in form %}
-              {% for error in field.errors %}
-                <li>{{ field.label }}: {{ error }}</li>
-              {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-              <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
+        {{ form.non_field_errors }}
 
         <div class="input-group">
           <i class="fas fa-user"></i>
@@ -138,8 +222,6 @@
         </div>
 
         <button class="btn" type="submit">Login</button>
-
-        <p class="forgot-password">Forgot your password? <a href="#">Reset here</a></p>
 
         <div class="social-icons">
           <a href="#"><i class="fab fa-google"></i></a>
