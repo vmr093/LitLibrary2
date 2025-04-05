@@ -5,54 +5,50 @@ from django.contrib import messages
 from .forms import SignUpForm, SignInForm, ProfileUpdateForm, AddBookForm, BookForm
 from .models import Book
 
-
 # Home Page
 def home(request):
     return render(request, 'main/home.html')
 
-
-# User Authentication Views
+# ✅ User Authentication Views - UPDATED
 def sign_in_view(request):
-    form = SignInForm()
     if request.method == 'POST':
-        form = SignInForm(data=request.POST)
+        form = SignInForm(request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             messages.success(request, f"Welcome back, {user.username}!")
-            return redirect('dashboard')  # Redirect after successful login
+            return redirect('dashboard')
         else:
             messages.error(request, "Invalid username or password.")
+    else:
+        form = SignInForm()
 
     return render(request, 'main/signin.html', {'form': form})
-
 
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # Log in the user automatically
+            login(request, user)
             messages.success(request, "Account created successfully! Welcome!")
-            return redirect('dashboard')  # Redirect to dashboard.html
+            return redirect('dashboard')
         else:
             messages.error(request, "Please fix the errors below.")
+            print("Signup form errors:", form.errors)  # Optional: helpful during development
     else:
         form = SignUpForm()
 
     return render(request, 'main/signup.html', {'form': form})
 
-
 @login_required
 def dashboard(request):
     return render(request, 'main/dashboard.html')  # Ensure this template exists
-
 
 def logout_view(request):
     logout(request)
     messages.info(request, "You have been logged out.")
     return redirect('home')
-
 
 @login_required
 def profile_view(request):
@@ -67,13 +63,11 @@ def profile_view(request):
 
     return render(request, 'main/profile.html', {'form': form})
 
-
 # 📚 Book Management Views
 @login_required
 def book_list(request):
     books = Book.objects.filter(user=request.user)  # Show only the user's books
     return render(request, 'main/book_list.html', {'books': books})
-
 
 @login_required
 def add_book(request):
@@ -82,33 +76,31 @@ def add_book(request):
         form = AddBookForm(request.POST)
         if form.is_valid():
             book = form.save(commit=False)
-            book.user = request.user  # Assign the book to the logged-in user
+            book.user = request.user
             book.save()
             messages.success(request, f'"{book.title}" has been added to your collection!')
-            return redirect('book_list')  # Redirect after adding
+            return redirect('book_list')
 
     return render(request, 'main/add_book.html', {'form': form})
 
-
 @login_required
 def edit_book(request, book_id):
-    book = get_object_or_404(Book, id=book_id, user=request.user)  # Ensure the book belongs to the user
+    book = get_object_or_404(Book, id=book_id, user=request.user)
 
     if request.method == "POST":
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
             messages.success(request, f'"{book.title}" has been updated!')
-            return redirect('book_list')  # Redirect to the book list after saving
+            return redirect('book_list')
     else:
         form = BookForm(instance=book)
 
     return render(request, 'main/edit_book.html', {'form': form, 'book': book})
 
-
 @login_required
 def delete_book(request, book_id):
-    book = get_object_or_404(Book, id=book_id, user=request.user)  # Ensure the book belongs to the user
+    book = get_object_or_404(Book, id=book_id, user=request.user)
     book.delete()
     messages.success(request, f'"{book.title}" has been deleted from your collection.')
-    return redirect('book_list')  # Redirect after deleting
+    return redirect('book_list')

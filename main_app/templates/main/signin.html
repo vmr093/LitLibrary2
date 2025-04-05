@@ -2,23 +2,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LitLibrary Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LitLibrary Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+  <style> 
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #1e2a47, #5a3e2b);
+            background: linear-gradient(135deg, #1e2a47, #5a3e2b); 
             font-family: Arial, sans-serif;
         }
         .container {
             display: flex;
-            width: 700px;
+            width: 900px;
             background: #f4e9dc;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -64,7 +64,7 @@
         }
         .input-group i {
             position: absolute;
-            left: 12px;
+            left: -10px;
             top: 50%;
             transform: translateY(-50%);
             color: #5a3e2b;
@@ -96,48 +96,56 @@
         }
         .social-icons a:hover {
             color: #5a3e2b;
-        }
-    </style>
+        }</style>
 </head>
 <body>
-    <div class="container">
-        <div class="left">
-            <h2>New Here?</h2>
-            <p>Register now and start your reading journey with LitLibrary!</p>
-            <a href="{% url 'signup' %}" class="btn">Register</a>
-        </div>
-    
-        <div class="right">
-            <h2>LitLibrary Login</h2>
-    
-            <!-- Django Login Form (Ensures Functionality) -->
-            <form method="post">
-                {% csrf_token %}
-                
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    {{ form.username }}  <!-- Uses Django's form field -->
-                </div>
-                
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    {{ form.password }}  <!-- Uses Django's form field -->
-                </div>
-                
-                <button class="btn" type="submit">Login</button>
-                
-                <p class="forgot-password">Forgot your password? <a href="#">Reset here</a></p>
-                
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-google"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </form>
-        </div>
-    </div>    
-    
-        </div>
+  <div class="container">
+    <div class="left">
+      <h2>New Here?</h2>
+      <p>Register now and start your reading journey with LitLibrary!</p>
+      <a href="{% url 'signup' %}" class="btn">Register</a>
     </div>
+
+    <div class="right">
+      <h2>LitLibrary Login</h2>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        {% if form.errors %}
+          <ul style="color: red;">
+            {% for field in form %}
+              {% for error in field.errors %}
+                <li>{{ field.label }}: {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          {{ form.username }}
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          {{ form.password }}
+        </div>
+
+        <button class="btn" type="submit">Login</button>
+
+        <p class="forgot-password">Forgot your password? <a href="#">Reset here</a></p>
+
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-google"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

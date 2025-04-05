@@ -2,23 +2,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LitLibrary Signup</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LitLibrary Signup</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+  <style>/
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #1e2a47, #5a3e2b);
+            background: linear-gradient(135deg, #1e2a47, #5a3e2b); 
             font-family: Arial, sans-serif;
         }
         .container {
+            margin-top: 150px;
             display: flex;
-            width: 700px;
+            width: 900px;
             background: #f4e9dc;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -49,7 +50,7 @@
         .input-group {
             position: relative;
             margin-bottom: 1.5rem;
-            width: 85%;
+            width: 90%;
             margin-left: auto;
             margin-right: auto;
         }
@@ -64,7 +65,7 @@
         }
         .input-group i {
             position: absolute;
-            left: 12px;
+            left: -10px;
             top: 50%;
             transform: translateY(-50%);
             color: #5a3e2b;
@@ -100,35 +101,62 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left">
-            <h2>Already Have an Account?</h2>
-            <p>Login now to continue your reading adventure!</p>
-            <a href="{% url 'signin' %}" class="btn">Login</a>
-        </div>
-        <div class="right">
-            <h2>Sign Up for LitLibrary</h2>
-            <form>
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" required>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="Email" required>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" required>
-                </div>
-                <button class="btn" type="submit">Sign Up</button>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-google"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </form>
-        </div>
+    <body style="background: linear-gradient(135deg, #1e2a47, #5a3e2b);">
+  <div class="container">
+    <div class="left">
+      <h2>Already Have an Account?</h2>
+      <p>Login now to continue your reading adventure!</p>
+      <a href="{% url 'signin' %}" class="btn">Login</a>
     </div>
+
+    <div class="right">
+      <h2>Sign Up for LitLibrary</h2>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        {% if form.errors %}
+          <ul style="color: red;">
+            {% for field in form %}
+              {% for error in field.errors %}
+                <li>{{ field.label }}: {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          {{ form.username }}
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          {{ form.email }}
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          {{ form.password1 }}
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          {{ form.password2 }}
+        </div>
+
+        <button class="btn" type="submit">Sign Up</button>
+
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-google"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

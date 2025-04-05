@@ -69,9 +69,9 @@ WSGI_APPLICATION = 'litlibraryv2.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
+        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
         conn_max_age=600,
-        ssl_require=True  # Ensure SSL is required for secure connections
+        ssl_require=False  # Use True in production
     )
 }
 # Password validation
