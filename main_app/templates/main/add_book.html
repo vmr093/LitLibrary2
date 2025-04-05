@@ -8,6 +8,8 @@
     <title>Add a Book | LitLibrary</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- FontAwesome -->
     <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'main/responsive.css' %}">
+
 
     <style>
         /* LitLibrary Themed Add Book Page */
@@ -45,7 +47,7 @@
         .add-book-container {
             display: flex;
             align-items: center;
-            width: 600px; /* Wider to accommodate both image & form */
+            width: 900px; /* Wider to accommodate both image & form */
             background: white;
             padding: 20px;
             border-radius: 12px;
@@ -86,7 +88,7 @@
 
         .form-container input,
         .form-container select {
-            width: 100%;
+            width: 80%;
             padding: 8px;
             border: 2px solid var(--secondary-color);
             border-radius: 5px;
@@ -122,7 +124,7 @@
 
         /* Submit Button */
         .form-container button {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             margin-top: 15px;
             background: var(--button-color);
@@ -138,6 +140,58 @@
         .form-container button:hover {
             background: var(--button-hover);
         }
+
+        @media (max-width: 768px) {
+    body {
+      display: block;
+      height: auto !important;
+      min-height: 100vh;
+      padding: 20px;
+      background-color: var(--background-color);
+    }
+
+    .add-book-container {
+      display: block;
+      width: 95%;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .book-cover-container {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 0;
+    }
+
+    #book-cover {
+      width: 130px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .form-container {
+      width: 100%;
+    }
+
+    .form-container input,
+    .form-container select {
+      font-size: 15px;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .form-container button {
+      font-size: 15px;
+      padding: 12px;
+      margin-top: 15px;
+      width: 100%;
+    }
+  }
     </style>
 </head>
 <body>
@@ -216,8 +270,13 @@
                         document.getElementById("id_cover_image").value = coverImage;
                         document.getElementById("book-cover").src = coverImage;
                         suggestionsList.innerHTML = "";
-                    });
 
+                        document.getElementById("book-cover").onload = () => {
+                            const coverContainer = document.querySelector(".book-cover-container");
+                            coverContainer.style.minHeight = "180px";
+                            coverContainer.style.paddingTop = "20px";
+                        };
+                        });
                     suggestionsList.appendChild(li);
                 });
             }

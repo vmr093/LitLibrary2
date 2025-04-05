@@ -1,0 +1,158 @@
+/* Responsive styling for LitLibrary mobile (screens under 768px) */
+@media (max-width: 768px) {
+
+  /* General body */
+  body {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    height: auto;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  /* Generic container layout */
+  .container {
+    flex-direction: column;
+    width: 95%;
+    margin-top: 20px;
+    padding: 1rem 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .left, .right {
+    width: 100%;
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+
+  .left {
+    border-bottom: 2px solid #e2d5c1;
+  }
+
+  .input-group {
+    width: 100%;
+    margin-bottom: 1.2rem;
+  }
+
+  .input-group input {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .social-icons {
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+
+  /* Book Cards - Book List & Dashboard */
+  .book-card {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background: #fff;
+  }
+
+  .dashboard-wrapper,
+  .booklist-wrapper {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+  }
+
+  .dashboard-title {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  /* Signup / Login form improvements */
+  form {
+    padding-bottom: 1rem;
+  }
+
+  /* Make images, logos responsive */
+  img, .logo {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 🔧 Add Book Page Responsive Styling */
+  .add-book-container {
+    flex-direction: column;
+    width: 100%;
+    max-width: 95%;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .book-cover-container {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 180px;
+    height: auto;
+    overflow: visible;
+}
+
+#book-cover {
+  width: 130px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  transition: all 0.3s ease-in-out;
+}
+
+  .form-container {
+    width: 100%;
+  }
+
+  .form-container h2 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .form-container label {
+    font-size: 14px;
+  }
+
+  .form-container input,
+  .form-container select {
+    font-size: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .form-container button {
+    font-size: 15px;
+    padding: 12px;
+    margin-top: 15px;
+  }
+
+  #suggestions {
+    font-size: 14px;
+  }
+
+  #suggestions li {
+    padding: 10px;
+  }
+}
