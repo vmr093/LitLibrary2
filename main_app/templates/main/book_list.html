@@ -3,163 +3,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Books | LitLibrary</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- FontAwesome -->
-    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'main/responsive.css' %}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Books | LitLibrary</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'main/responsive.css' %}">
 
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F5EDE0;
+      color: #2E2A28;
+      text-align: center;
+      padding: 20px;
+    }
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #F5EDE0;
-            color: #2E2A28;
-            text-align: center;
-            padding: 20px;
-        }
+    h2 {
+      color: #4A3F35;
+      margin-bottom: 20px;
+    }
 
-        /* ✅ Navbar */
-        .navbar {
-            background-color: #4A3F35;
-            padding: 15px;
-            text-align: center;
-        }
+    .book-list-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-        .navbar a {
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            padding: 10px 15px;
-            margin: 5px;
-            display: inline-block;
-            border-radius: 8px;
-            transition: background 0.3s ease-in-out;
-        }
+    .book-card {
+      padding: 15px;
+      border-radius: 10px;
+      width: 220px;
+      text-align: center;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease-in-out;
+    }
 
-        .navbar a:hover {
-            background-color: #6E3A29;
-        }
+    .book-card:hover {
+      transform: scale(1.05);
+    }
 
-        h2 {
-            color: #4A3F35;
-            margin-bottom: 20px;
-        }
+    .book-card img {
+      width: 100px;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
 
-        /* ✅ Book List Container */
-        .book-list-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .book-card h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
 
-        /* ✅ Individual Book Card */
-        .book-card {
-            {% comment %} background: white; {% endcomment %}
-            padding: 15px;
-            border-radius: 10px;
-            width: 220px;
-            text-align: center;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out;
-        }
+    .book-card p {
+      font-size: 14px;
+      color: #4A3F35;
+    }
 
-        .book-card:hover {
-            transform: scale(1.05);
-        }
+    .edit-btn, .delete-btn {
+      display: inline-block;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
 
-        .book-card img {
-            width: 100px;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
+    .edit-btn {
+      background-color: #4CAF50;
+      color: white;
+      margin-right: 5px;
+    }
 
-        .book-card h3 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
+    .delete-btn {
+      background-color: #E74C3C;
+      color: white;
+      border: none;
+    }
 
-        .book-card p {
-            font-size: 14px;
-            color: #4A3F35;
-        }
+    .delete-btn:hover {
+      background-color: #C0392B;
+    }
 
-        /* ✅ Button Styling */
-        .edit-btn, .delete-btn {
-            display: inline-block;
-            padding: 8px 12px;
-            font-size: 14px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+    form {
+      display: inline-block;
+    }
 
-        .edit-btn {
-            background-color: #4CAF50;
-            color: white;
-            margin-right: 5px;
-        }
+    /* 🔥 Slide-Out Navbar */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 1001;
+      background-color: #8b5e3c;
+      color: white;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 20px;
+      cursor: pointer;
+    }
 
-        .delete-btn {
-            background-color: #E74C3C;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      height: 100vh;
+      width: 250px;
+      background-color: #f4e9dc;
+      box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+      padding-top: 80px;
+      padding-left: 20px;
+      z-index: 1000;
+      transition: right 0.3s ease-in-out;
+    }
 
-        .delete-btn:hover {
-            background-color: #C0392B;
-        }
+    .mobile-nav a {
+      color: #1e2a47;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 12px 0;
+    }
 
-        form {
-            display: inline-block;
-        }
+    .mobile-nav a:hover {
+      color: #8b5e3c;
+    }
 
-    </style>
+    .mobile-nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 999;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        display: none;
+      }
+
+      .mobile-nav-toggle {
+        display: block;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- ✅ Navbar -->
-    <div class="navbar">
-        <a href="{% url 'home' %}">🏠 Home</a>
-        <a href="{% url 'dashboard' %}">🏠 Dashboard</a>
-        <a href="{% url 'book_list' %}">📖 My Books</a>
-        <a href="{% url 'add_book' %}">➕ Add a Book</a>
-        <a href="{% url 'logout' %}">🚪 Logout</a>
-    </div>
+  <!-- ✅ Mobile Nav Toggle -->
+  <div class="mobile-nav-toggle" onclick="toggleMobileMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
 
-    <h2>My Book Collection 📚</h2>
+  <!-- ✅ Slide-Out Menu -->
+  <div id="mobile-menu" class="mobile-nav">
+    <a href="{% url 'home' %}">🏠 Home</a>
+    <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+    <a href="{% url 'book_list' %}">📖 My Books</a>
+    <a href="{% url 'add_book' %}">➕ Add a Book</a>
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+  </div>
+  <div id="mobile-overlay" class="mobile-nav-overlay" onclick="closeMobileMenu()"></div>
 
-    <div class="book-list-container">
-        {% for book in books %}
-            <div class="book-card">
-                <img src="{{ book.cover_image }}" alt="{{ book.title }}">
-                <h3>{{ book.title }}</h3>
-                <p>By {{ book.author }}</p>
-                <p>Status: {{ book.get_status_display }}</p>
+  <!-- ✅ Standard Desktop Navbar -->
+  <div class="navbar">
+    <a href="{% url 'home' %}">🏠 Home</a>
+    <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+    <a href="{% url 'book_list' %}">📖 My Books</a>
+    <a href="{% url 'add_book' %}">➕ Add a Book</a>
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+  </div>
 
-                <!-- Edit Book Button -->
-                <a href="{% url 'edit_book' book.id %}" class="edit-btn">✏️ Edit</a>
+  <h2>My Book Collection 📚</h2>
 
-                <!-- Delete Book Form -->
-                <form action="{% url 'delete_book' book.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
-                    {% csrf_token %}
-                    <button type="submit" class="delete-btn">🗑 Delete</button>
-                </form>
-            </div>
-        {% empty %}
-            <p>No books added yet. Start by adding a book!</p>
-        {% endfor %}
-    </div>
+  <div class="book-list-container">
+    {% for book in books %}
+      <div class="book-card">
+        <img src="{{ book.cover_image }}" alt="{{ book.title }}">
+        <h3>{{ book.title }}</h3>
+        <p>By {{ book.author }}</p>
+        <p>Status: {{ book.get_status_display }}</p>
 
+        <a href="{% url 'edit_book' book.id %}" class="edit-btn">✏️ Edit</a>
+
+        <form action="{% url 'delete_book' book.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
+          {% csrf_token %}
+          <button type="submit" class="delete-btn">🗑 Delete</button>
+        </form>
+      </div>
+    {% empty %}
+      <p>No books added yet. Start by adding a book!</p>
+    {% endfor %}
+  </div>
+
+  <!-- ✅ Mobile Nav Logic -->
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('mobile-overlay');
+      const isOpen = menu.style.right === '0px';
+      if (isOpen) {
+        menu.style.right = '-100%';
+        overlay.style.display = 'none';
+      } else {
+        menu.style.right = '0';
+        overlay.style.display = 'block';
+      }
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').style.right = '-100%';
+      document.getElementById('mobile-overlay').style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const links = document.querySelectorAll('.mobile-nav a');
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          closeMobileMenu();
+        });
+      });
+    });
+  </script>
 </body>
 </html>
